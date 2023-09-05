@@ -78,4 +78,20 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            echo 'Sending email notification for pipeline success'
+            emailext body: 'The pipeline has succeeded.',
+                subject: 'Pipeline Success',
+                to: '1396aishu@gmail.com',
+                attachLog: true 
+        }
+        failure {
+            echo 'Sending email notification for pipeline failure'
+            emailext body: 'The pipeline has failed.',
+                subject: 'Pipeline Failure',
+                to: '1396aishu@gmail.com',
+                attachLog: true 
+        }
+    }
 }
