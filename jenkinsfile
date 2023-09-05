@@ -50,13 +50,15 @@ pipeline {
     post {
         success {
             echo 'Sending email notification for pipeline success'
-            mail to: '1396aishu@gmail.com',
+            emailext attachmentsPattern: '**/*.log', 
+            to: '1396aishu@gmail.com',
             subject: 'Pipeline Success',
             body: 'The pipeline has succeeded.'
         }
         failure {
             echo 'Sending email notification for pipeline failure'
-            mail to: '1396aishu@gmail.com',
+            emailext attachmentsPattern: '**/*.log',
+            to: '1396aishu@gmail.com',
             subject: 'Pipeline Failure',
             body: 'The pipeline has failed. Check logs for details.'
         }
