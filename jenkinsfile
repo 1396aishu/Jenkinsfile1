@@ -50,15 +50,17 @@ pipeline {
     post {
         success {
             echo 'Sending email notification for pipeline success'
-            emailext body: 'The pipeline has succeeded.',
+            emailext attachmentsPattern: '**/*.log',
+            to: '1396aishu@gmail.com',
             subject: 'Pipeline Success',
-            mail to: '1396aishu@gmail.com'
+            body: 'The pipeline has succeeded. Please find the Jenkins log file attached.'
         }
         failure {
             echo 'Sending email notification for pipeline failure'
-            emailext body: 'The pipeline has failed. Check logs for details.',
+            emailext attachmentsPattern: '**/*.log',
+            to: '1396aishu@gmail.com',
             subject: 'Pipeline Failure',
-            mail to: '1396aishu@gmail.com'
+            body: 'The pipeline has failed. Check logs for details. Please find the Jenkins log file attached.'
         }
     }
 }
