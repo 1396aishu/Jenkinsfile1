@@ -51,7 +51,6 @@ pipeline {
         always {
             echo 'Archiving the build log'
             archiveArtifacts artifacts: 'build.log', onlyIfSuccessful: false
-'  
         }
         success {
             echo 'Sending email notification for pipeline success'
