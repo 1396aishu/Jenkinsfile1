@@ -5,64 +5,60 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Stage 1: Building the code using Maven'
-                
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Stage 2: Running unit tests using the JUnit and Performing integration tests using Postman '
-                
+                echo 'Stage 2: Running unit tests using JUnit and performing integration tests using Postman'
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo 'Stage 3: Performing code analysis using Jenkins and a code analysis tool like SonarQube '
-                
+                echo 'Stage 3: Performing code analysis using Jenkins and a code analysis tool like SonarQube'
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Stage 4: Performing a security scan using a security scanning tool using OWASP ZAP'
-               
-            }
-            post {
-                success {
-                    mail to: '1396aishu@gmail.com'
-                    subject: 'Pipeline Success',
-                    body: 'The pipeline has succeeded.',
-        
-                }
-                failure {
-                    mail to: '1396aishu@gmail.com'
-                    subject: 'Pipeline Failure',
-                    body: 'The pipeline has failed. Check logs for details.',
-        
-                }
+                echo 'Stage 4: Performing a security scan using a security scanning tool like OWASP ZAP'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
                 echo 'Stage 5: Deploying the application to a staging server AWS EC2 instance'
-                echo 'deploy tools like AWS CodeDeploy or Docker for this stage'
+                echo 'Deploy tools like AWS CodeDeploy or Docker for this stage'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Stage 6: Running integration tests on the staging environment'
-                echo 'using testing frameworks and Selenium for this stage'
+                echo 'Using testing frameworks and Selenium for this stage'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo 'Stage 7: Deploying the application to a AWS EC2 instance production server'
-                
+                echo 'Stage 7: Deploying the application to an AWS EC2 instance production server'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Sending email notification for pipeline success'
+            mail to: '1396aishu@gmail.com',
+            subject: 'Pipeline Success',
+            body: 'The pipeline has succeeded.'
+        }
+        failure {
+            echo 'Sending email notification for pipeline failure'
+            mail to: '1396aishu@gmail.com',
+            subject: 'Pipeline Failure',
+            body: 'The pipeline has failed. Check logs for details.'
         }
     }
 }
