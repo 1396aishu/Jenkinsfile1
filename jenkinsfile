@@ -57,14 +57,14 @@ pipeline {
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Success',
             body: 'The pipeline has succeeded.',
-            attachments: [[$class: 'Artifact', file: 'build.log']]
+            emailext attachmentsPattern: '**/*.log'
         }
         failure {
             echo 'Sending email notification for pipeline failure'
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Failure',
             body: 'The pipeline has failed. Check logs for details.',
-            attachments: [[$class: 'Artifact', file: 'build.log']]
+            emailext attachmentsPattern: '**/*.log',
         }
     }
 }
