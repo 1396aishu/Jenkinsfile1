@@ -28,6 +28,20 @@ pipeline {
                 echo 'Stage 4: Performing a security scan using a security scanning tool using OWASP ZAP'
                
             }
+            post {
+                success {
+                    mail to: '1396aishu@gmail.com'
+                    subject: 'Pipeline Success',
+                    body: 'The pipeline has succeeded.',
+        
+                }
+                failure {
+                    mail to: '1396aishu@gmail.com'
+                    subject: 'Pipeline Failure',
+                    body: 'The pipeline has failed. Check logs for details.',
+        
+                }
+            }
         }
 
         stage('Deploy to Staging') {
@@ -51,18 +65,4 @@ pipeline {
             }
         }
     }
-            post {
-                success {
-                    mail to: '1396aishu@gmail.com'
-                    subject: 'Pipeline Success',
-                    body: 'The pipeline has succeeded.',
-        
-                }
-                failure {
-                    mail to: '1396aishu@gmail.com'
-                    subject: 'Pipeline Failure',
-                    body: 'The pipeline has failed. Check logs for details.',
-        
-                }
-            }
 }
