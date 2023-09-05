@@ -51,4 +51,16 @@ pipeline {
             }
         }
     }
+post {
+    success {
+        emailext subject: 'Pipeline Success',
+        body: 'The pipeline has succeeded.',
+        to: '1396aishu@gmail.com'
+    }
+    failure {
+        emailext subject: 'Pipeline Failure',
+        body: 'The pipeline has failed. Check logs for details.',
+        to: '1396aishu@gmail.com'
+    }
+}
 }
