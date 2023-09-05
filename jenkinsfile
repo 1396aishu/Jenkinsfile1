@@ -64,5 +64,5 @@ pipeline {
                     body: 'The pipeline has failed. Check logs for details.',
         
                 }
-}
+            }
 }
