@@ -50,21 +50,22 @@ pipeline {
     post {
         always {
             echo 'Archiving the build log'
-            archiveArtifacts 'build.log'  
+            archiveArtifacts artifacts: 'build.log', onlyIfSuccessful: false
+'  
         }
         success {
             echo 'Sending email notification for pipeline success'
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Success',
             body: 'The pipeline has succeeded.',
-            attachmentsPattern: 'build.log'
+            attachments: [[$class: 'Artifact', file: 'build.log']]
         }
         failure {
             echo 'Sending email notification for pipeline failure'
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Failure',
             body: 'The pipeline has failed. Check logs for details.',
-            attachmentsPattern: 'build.log'
+            attachments: [[$class: 'Artifact', file: 'build.log']]
         }
     }
 }
