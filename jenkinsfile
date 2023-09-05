@@ -12,6 +12,22 @@ pipeline {
             steps {
                 echo 'Stage 2: Running unit tests using JUnit and performing integration tests using Postman'
             }
+            post {
+                success {
+                    echo 'Sending email notification for Unit and Integration Tests success'
+                    emailext body: 'Unit and Integration Tests have succeeded.',
+                        subject: 'Unit and Integration Tests Success',
+                        to: '1396aishu@gmail.com',
+                        attachLog: true
+                }
+                failure {
+                    echo 'Sending email notification for Unit and Integration Tests failure'
+                    emailext body: 'Unit and Integration Tests have failed.',
+                        subject: 'Unit and Integration Tests Failure',
+                        to: '1396aishu@gmail.com',
+                        attachLog: true
+                }
+            }
         }
 
         stage('Code Analysis') {
@@ -23,6 +39,22 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Stage 4: Performing a security scan using a security scanning tool like OWASP ZAP'
+            }
+            post {
+                success {
+                    echo 'Sending email notification for Security Scan success'
+                    emailext body: 'Security Scan has succeeded.',
+                        subject: 'Security Scan Success',
+                        to: '1396aishu@gmail.com',
+                        attachLog: true
+                }
+                failure {
+                    echo 'Sending email notification for Security Scan failure'
+                    emailext body: 'Security Scan has failed.',
+                        subject: 'Security Scan Failure',
+                        to: '1396aishu@gmail.com',
+                        attachLog: true
+                }
             }
         }
 
@@ -44,23 +76,6 @@ pipeline {
             steps {
                 echo 'Stage 7: Deploying the application to an AWS EC2 instance production server'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Sending email notification for pipeline success'
-            emailext body:'The pipeline has succeeded.',
-                subject: 'Pipeline Success',
-                to: '1396aishu@gmail.com',
-                attachLog: true 
-        }
-        failure {
-            echo 'Sending email notification for pipeline success'
-            emailext body:'The pipeline has succeeded.',
-                subject: 'Pipeline Success',
-                to: '1396aishu@gmail.com',
-                attachLog: true 
         }
     }
 }
