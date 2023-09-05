@@ -48,23 +48,19 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Archiving the build log'
-            archiveArtifacts artifacts: 'build.log', onlyIfSuccessful: false
-        }
         success {
             echo 'Sending email notification for pipeline success'
+            emailext attachLog: true
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Success',
-            body: 'The pipeline has succeeded.',
-            emailext attachmentsPattern: '**/*.log'
+            body: 'The pipeline has succeeded.'
         }
         failure {
             echo 'Sending email notification for pipeline failure'
+            emailext attachLog: true
             mail to: '1396aishu@gmail.com',
             subject: 'Pipeline Failure',
-            body: 'The pipeline has failed. Check logs for details.',
-            emailext attachmentsPattern: '**/*.log',
+            body: 'The pipeline has failed. Check logs for details.'
         }
     }
 }
